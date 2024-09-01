@@ -13,7 +13,7 @@ const HomeDash = ({theme}) => {
   }, []);
 
   const fetchItems = (query = '') => {
-    axios.get(`http://localhost:4000/search?q=${query}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/search?q=${query}`)
       .then(result => {
         setItems(result.data);
       })
@@ -26,7 +26,7 @@ const HomeDash = ({theme}) => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:4000/')
+    axios.get(`${process.env.REACT_APP_API_URL}/`)
       .then(result => {
         setItems(result.data);
       })

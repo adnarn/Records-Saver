@@ -14,7 +14,7 @@ const MainContent = ({ theme }) => {
   }, []);
 
   const fetchItems = (query = '') => {
-    axios.get(`http://localhost:4000/search?q=${query}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/search?q=${query}`)
       .then(result => {
         setItems(result.data);
       })
@@ -34,7 +34,7 @@ const MainContent = ({ theme }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        axios.delete(`http://localhost:4000/deleteItem/${id}`)
+        axios.delete(`${process.env.REACT_APP_API_URL}/deleteItem/${id}`)
           .then(res => {
             const updatedItems = items.filter((_, i) => i !== index);
             setItems(updatedItems);

@@ -13,7 +13,7 @@ const AddItem = ({theme}) => {
 
   const Submit = (e)=>{
     e.preventDefault();
-    axios.post("http://localhost:4000/addItem", {name, price})
+    axios.post(`${process.env.REACT_APP_API_URL}/addItem`, {name, price})
     .then(result =>{
        console.log(result)
        navigate('/')

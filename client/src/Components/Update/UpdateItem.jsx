@@ -11,7 +11,7 @@ const UpdateItem = ({theme}) => {
     
 
     useEffect(() => {
-        axios.get('http://localhost:4000/getItem/'+id)
+        axios.get(`${process.env.REACT_APP_API_URL}/getItem/`+id)
           .then(result => {
             {console.log(result)}
             setName(result.data.name)
@@ -22,7 +22,7 @@ const UpdateItem = ({theme}) => {
 
       const Update = (e)=>{
         e.preventDefault();
-        axios.put("http://localhost:4000/updateItem/"+id, {name, price})
+        axios.put(`${process.env.REACT_APP_API_URL}/updateItem/`+id, {name, price})
         .then(result =>{
            console.log(result)
            navigate('/')
