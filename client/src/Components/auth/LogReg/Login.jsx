@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { Alert, Spinner } from 'react-bootstrap';
+import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import "./LogReg.css"
 
@@ -34,17 +33,20 @@ const Login = () => {
     setLoading(true);
     setError('');
     setPasswordError(false);   
-   
-
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
         });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        }
 
         const result = await response.json();
         console.log(result);
@@ -83,6 +85,7 @@ const Login = () => {
     <h2>Login</h2>
 
     {error && <Alert variant="danger">{error}</Alert>}
+    {loading && <Spinner animation="border" role="status"><span className="sr-only">Loading...</span></Spinner>}
 
     <Form.Group controlId="formBasicEmail">
       <Form.Label>Email address</Form.Label>
